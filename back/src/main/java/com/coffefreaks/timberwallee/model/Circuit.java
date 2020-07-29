@@ -1,4 +1,4 @@
 package com.coffefreaks.timberwallee.model;
 
-public class Scenario {
+public class Circuit {
 }

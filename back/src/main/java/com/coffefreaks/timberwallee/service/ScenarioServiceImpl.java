@@ -1,32 +1,32 @@
 package com.coffefreaks.timberwallee.service;
 
-import com.coffefreaks.timberwallee.model.Request.ScenarioRequest;
-import com.coffefreaks.timberwallee.model.Response.ScenarioResponse;
-import com.coffefreaks.timberwallee.service.Interface.ScenarioService;
+import com.coffefreaks.timberwallee.model.Request.CircuitRequest;
+import com.coffefreaks.timberwallee.model.Response.CircuitResponse;
+import com.coffefreaks.timberwallee.service.Interface.CircuitService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ScenarioServiceImpl implements ScenarioService {
+public class ScenarioServiceImpl implements CircuitService {
 
     @Override
-    public List<ScenarioResponse> getAll() {
+    public List<CircuitResponse> getAll() {
         return null;
     }
 
     @Override
-    public ScenarioResponse create(ScenarioRequest scenarioRequest) {
+    public CircuitResponse create(CircuitRequest scenarioRequest) {
         return null;
     }
 
     @Override
-    public ScenarioResponse getById(Integer id) {
+    public CircuitResponse getById(Integer id) {
         return null;
     }
 
     @Override
-    public ScenarioResponse update(ScenarioRequest scenarioRequest) {
+    public CircuitResponse update(CircuitRequest scenarioRequest) {
         return null;
     }
 
