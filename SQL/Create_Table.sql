@@ -17,6 +17,7 @@ Create Table Cartographie
 	PRIMARY KEY(Identifiant)
 )
 
+/*
 Create Table Obstacle
 (
 	Identifiant BIGINT IDENTITY,
@@ -27,7 +28,7 @@ Create Table Obstacle
 	PRIMARY KEY(Identifiant),
 	ADD Constraint Fk_Cartographie Foreign key (Cartographie) References Cartographie(Identifiant),
 	ADD Constraint Fk_Type_Obstacle Foreign key (Type_Obstacle) References Type_Obstacle(Identifiant)
-)
+)*/
 
 Create Table Type_Obstacle
 (
@@ -52,6 +53,8 @@ Create Table Points_Arrets
 	Xpoint BIGINT,
 	Ypoint BIGINT,
 	Parcours BIGINT,
+	Type_Obstacle BIGINT,
 	PRIMARY KEY (Identifiant),
-	ADD Constraint FK_Parcours Foreign key (Parcours) References Parcours(Identifiant)
+	ADD Constraint FK_Parcours Foreign key (Parcours) References Parcours(Identifiant),
+	ADD Constraint Fk_Type_Obstacle Foreign key (Type_Obstacle) References Type_Obstacle(Identifiant)
 )
