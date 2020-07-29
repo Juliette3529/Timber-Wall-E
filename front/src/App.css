@@ -1,3 +1,10 @@
 .App {
   margin-top: 3em;
 }
+.icon-orange{
+  color:orangered;
+}
+.no-border{
+  border: none !important;
+  box-shadow: none !important;
+}
