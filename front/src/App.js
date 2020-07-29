@@ -1,7 +1,8 @@
 import React from 'react';
-import {Button, Container, Segment, Image, Grid} from "semantic-ui-react";
+import {Button, Container, Segment, Image, Grid, Card} from "semantic-ui-react";
 import './App.css';
 import logo from '../src/logowithoutslogan.svg';
+import battery from '../src/battery.svg';
 
 function App() {
   const boomer = () => {
@@ -48,10 +49,24 @@ function App() {
           <Grid >
             <Grid.Row verticalAlign='middle' columns={5} centered>
               <Grid.Column floated='left' width={5}>
-                <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-              </Grid.Column>*
+                <Image src={battery} size='tiny'/>
+              </Grid.Column>
               <Grid.Column></Grid.Column>
               <Grid.Column floated='right' width={5}>
+              <Card>
+                <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+                <Card.Content>
+                  <Card.Header>Matthew</Card.Header>
+                  <Card.Meta>
+                    <span className='date'>Joined in 2015</span>
+                  </Card.Meta>
+                  <Card.Description>
+                    Matthew is a musician living in Nashville.
+                  </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                </Card.Content>
+            </Card>
                 <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
               </Grid.Column>
             </Grid.Row>
@@ -62,7 +77,6 @@ function App() {
         </Segment>
       </Segment.Group>
     </Container>
-
   );
 }
 
