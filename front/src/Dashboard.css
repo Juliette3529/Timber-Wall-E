@@ -4,7 +4,7 @@
 .icon-orange{
   color:orangered;
 }
-.no-border{
+.button.basic {
   border: none !important;
   box-shadow: none !important;
 }

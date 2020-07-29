@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './Cartography.css';
-import obstacle from './obstacle.svg';
-import tree from './tree.svg';
-import blank from './blank.svg';
-import robot from './robot.svg';
+import obstacle from '../../images/obstacle.svg';
+import tree from '../../images/tree.svg';
+import blank from '../../images/blank.svg';
+import robot from '../../images/robot.svg';
 import * as d3 from "d3";
 
 function Cartography({circuit, setCircuit, dataset}) {
