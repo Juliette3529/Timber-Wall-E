@@ -34,4 +34,13 @@ public class RobiotResponse {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "RobiotResponse{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

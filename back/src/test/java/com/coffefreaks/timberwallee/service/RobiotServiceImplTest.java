@@ -1,5 +1,6 @@
 package com.coffefreaks.timberwallee.service;
 
+import com.coffefreaks.timberwallee.model.Enum.EngineStatus;
 import com.coffefreaks.timberwallee.model.Location;
 import com.coffefreaks.timberwallee.service.Interface.RobiotService;
 import org.junit.jupiter.api.Assertions;
@@ -24,12 +25,12 @@ class RobiotServiceImplTest {
 
     @Test
     @DisplayName("IntegrationTest - Retrieve Robiot Location successfully")
-    void getLocation() {
+    void whenExternalApiIsRunning_getLocationWithSuccess() {
         /* Need robiot-api running and configured on application.properties in test/resources
         *  More tests with mock client needed to tests errors
         **/
 
-        Location loc = service.getLocation();
+        Location loc = service.getCurrentLocation();
 
         logger.info("getlocation - {}", loc);
         Assertions.assertNotNull(loc, "Location not null");
@@ -38,8 +39,17 @@ class RobiotServiceImplTest {
     }
 
     @Test
-    @Disabled("Not implemented yet")
-    void getEngineStatus() {
+    @DisplayName("IntegrationTest - Retrieve Robiot engine status successfully")
+    void whenExternalApiIsRunning_getEngineStatusWithSuccess() {
+        /* Need robiot-api running and configured on application.properties in test/resources
+         *  More tests with mock client needed to tests errors
+         **/
+
+        EngineStatus status = service.getEngineStatus();
+
+        logger.info("getEngineStatus - {}", status);
+        Assertions.assertNotNull(status, "Location not null");
+        Assertions.assertSame(EngineStatus.STOPPED, status);
     }
 
     @Test

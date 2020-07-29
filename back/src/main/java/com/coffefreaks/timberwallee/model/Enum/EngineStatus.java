@@ -1,12 +1,22 @@
 package com.coffefreaks.timberwallee.model.Enum;
 
 public enum EngineStatus {
-    MOVING,
-    STOPPED,
-    ERROR
+    MOVING("moving"),
+    STOPPED("stopped"),
+    ERROR("internal error");
 
-    // ENGINE STATES AVAILABLE
-//    public static final String MOVING  = "moving";
-//    public static final String STOPPED = "stopped";
-//    public static final String ERROR   = "internal error"; // For future use
+    private final String label;
+
+    EngineStatus(String value) {
+        this.label = value;
+    }
+
+    public static EngineStatus valueOfLabel(String label){
+        for (EngineStatus e : values()) {
+            if (e.label.equals(label)) {
+                return e;
+            }
+        }
+        return null;
+    }
 }

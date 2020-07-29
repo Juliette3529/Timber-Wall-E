@@ -25,7 +25,7 @@ public class RobiotServiceImpl implements RobiotService {
     private String robiotEndpoint;
 
     @Override
-    public Location getLocation() {
+    public Location getCurrentLocation() {
         String url = robiotEndpoint + "/301";
         logger.trace("getLocation - url = {}", url);
         ResponseEntity<RobiotResponse> response = clientRobiot.getForEntity(url, RobiotResponse.class);
@@ -34,13 +34,14 @@ public class RobiotServiceImpl implements RobiotService {
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
             // Test the format of the return content, must be "double,double" format
             if (!response.getBody().getContent().matches("^[0-9]+\\.[0-9]+,[0-9]+.[0-9]+$")) {
-                logger.trace("getLocation - body.content = {}", response.getBody().getContent());
+                logger.error("getLocation - Error with body.content = {}", response.getBody().getContent());
                 throw new TimberResourceNotFoundException("Invalid content for Location");
             }
             String[] content = response.getBody().getContent().split(",");
             loc.setPositionX(Double.parseDouble(content[0]));
             loc.setPositionY(Double.parseDouble(content[1]));
         } else {
+            logger.error("getLocation - Error {} while retrieving current location - {}", response.getStatusCode(), response.getBody());
             throw new TimberResourceNotFoundException("Robiot-API error on id 301");
         }
         return loc;
@@ -48,8 +49,19 @@ public class RobiotServiceImpl implements RobiotService {
 
     @Override
     public EngineStatus getEngineStatus() {
-        //TODO to be implemented
-        return null;
+        String url = robiotEndpoint + "/201";
+        logger.trace("getEngineStatus - url = {}", url);
+        ResponseEntity<RobiotResponse> response = clientRobiot.getForEntity(url, RobiotResponse.class);
+
+        EngineStatus status;
+        if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+            status = EngineStatus.valueOfLabel(response.getBody().getContent());
+            logger.trace("getEngineStatus - Enum status={} and response.content={}", status, response.getBody().getContent());
+        } else {
+            logger.error("getEngineStatus - Error {} while retrieving robiot engine status - {}", response.getStatusCode(), response.getBody());
+            throw new TimberResourceNotFoundException("Robiot-API error on id 201");
+        }
+        return status;
     }
 
     @Override

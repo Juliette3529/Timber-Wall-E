@@ -10,7 +10,7 @@ public interface RobiotService {
      * Contact the Robiot API to get its current location
      * @return a location
      */
-    Location getLocation();
+    Location getCurrentLocation();
 
     /**
      * Contact the Robiot API to get its engine's status
