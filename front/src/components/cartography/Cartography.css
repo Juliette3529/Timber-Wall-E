@@ -12,3 +12,6 @@
 .tree {
   cursor: pointer;
 }
+.obstacle {
+  cursor: not-allowed;
+}

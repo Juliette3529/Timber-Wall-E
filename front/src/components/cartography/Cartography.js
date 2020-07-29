@@ -1,5 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './Cartography.css';
+import obstacle from './obstacle.svg';
+import tree from './tree.svg';
+import blank from './blank.svg';
+import robot from './robot.svg';
 import * as d3 from "d3";
 
 function Cartography({circuit, setCircuit, dataset}) {
@@ -28,26 +32,32 @@ function Cartography({circuit, setCircuit, dataset}) {
         drawChart();
     }, []);
 
-    const getCellColor = (cellType) => {
+    const getCellImage = (cellType) => {
         switch (cellType) {
-            case "O": return "#0F0";
-            case "|":
-            case "-": return "#FFF";
-            case "X": return "#F00";
-            case "D": return "#F0F";
-            default: return "#FFF";
+            case "O": return tree;
+            case "X": return obstacle;
+            case "D": return robot;
+            default: return blank;
+        }
+    };
+    const getCellClass = (cellType) => {
+        switch (cellType) {
+            case "O": return "tree";
+            case "X": return "obstacle";
+            case "D": return "robot";
+            default: return "";
         }
     };
 
     const getXFromIndex = (i) => i % columns;
     const getYFromIndex = (i) => Math.floor(i / columns)
 
-    const addPointToCircuit = (cellSymbol, i) => {
+    const addPointToCircuit = (cellSymbol, cellIndex) => {
         if (cellSymbol !== "O") {
             return;
         }
 
-        setCircuit(`${circuit}\n${getXFromIndex(i)} ${getYFromIndex(i)}`);
+        setCircuit(`${circuit}\n${getXFromIndex(cellIndex)} ${getYFromIndex(cellIndex)}`);
     }
 
     const drawChart = () => {
@@ -63,22 +73,14 @@ function Cartography({circuit, setCircuit, dataset}) {
             .selectAll()
             .data(d3Data)
             .enter()
-            .append("rect")
+            .append("svg:image")
             .attr("x", (d, i) => getXFromIndex(i) * cellSize)
             .attr("y", (d, i) => getYFromIndex(i) * cellSize)
             .attr("width", cellSize)
             .attr("height", cellSize)
-            .attr("fill", getCellColor)
-            .attr("class", (d) => d === "O" ? "tree" : "")
+            .attr("xlink:href", getCellImage)
+            .attr("class", getCellClass)
             .on("click", addPointToCircuit)
-        ;
-
-        svg
-            .selectAll()
-            .data(d3Data)
-            .enter()
-            .append("svg")
-            .attr("src", "./obstacle.svg")
         ;
     };
 
