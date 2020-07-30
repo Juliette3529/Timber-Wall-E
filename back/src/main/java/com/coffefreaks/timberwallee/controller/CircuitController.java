@@ -16,28 +16,51 @@ public class CircuitController {
 
     private final CircuitService circuitService;
 
+    /**
+     * Class constructor
+     * @param circuitService a circuitService
+     */
     @Autowired
     public CircuitController(CircuitService circuitService) {
         this.circuitService = circuitService;
     }
 
+    /**
+     * Get All Circuit
+     * @return a list of circuitResponse
+     */
     @GetMapping("/")
-    public List<CircuitResponse> getActivity() {
+    public List<CircuitResponse> getCircuit() {
         return this.circuitService.getAll();
     }
 
+    /**
+     * Create a circuit
+     * @param circuitRequest a circuitRequest object
+     * @return a circuitResponse
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CircuitResponse createCircuit(@RequestBody CircuitRequest circuitRequest) {
         return this.circuitService.create(circuitRequest);
     }
 
+    /**
+     * Update a Circuit
+     * @param id circuit id
+     * @param circuitRequest a circuitRequest object
+     * @return a circuitResponse
+     */
     @PutMapping(value = "/{id}")
     public CircuitResponse updateCircuit(@PathVariable( "id" ) Integer id, @RequestBody CircuitRequest circuitRequest) {
         RestPreconditions.checkFound(this.circuitService.getById(id));
         return this.circuitService.update(circuitRequest);
     }
 
+    /**
+     * Delete circuit
+     * @param id a id of circuit
+     */
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteCircuit(@PathVariable("id") Integer id) {

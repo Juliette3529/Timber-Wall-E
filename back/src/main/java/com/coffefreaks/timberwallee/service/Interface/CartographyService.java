@@ -11,7 +11,7 @@ public interface CartographyService {
 
     CartographyResponse create(CartographyRequest cartographyRequest);
 
-    boolean getById(Integer id);
+    CartographyResponse getById(Integer id);
 
     CartographyResponse update(CartographyRequest cartographyRequest);
 

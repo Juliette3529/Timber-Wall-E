@@ -9,5 +9,4 @@ public class TimberWalleEApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TimberWalleEApplication.class, args);
 	}
-
 }
