@@ -1,6 +1,5 @@
 package com.coffefreaks.timberwallee.service.Interface;
 
-import com.coffefreaks.timberwallee.model.Enum.Direction;
 import com.coffefreaks.timberwallee.model.Enum.EngineStatus;
 import com.coffefreaks.timberwallee.model.Location;
 
@@ -20,8 +19,8 @@ public interface RobiotService {
 
     /**
      * Move the robot of 1 position in the specified direction
-     * @param direction an enum with the direction of the move
-     * @return true if moving is a success, false otherwise
+     *
+     * @param dest@return true if moving is a success, false otherwise
      */
-    boolean move(Direction direction);
+    boolean move(Location dest);
 }

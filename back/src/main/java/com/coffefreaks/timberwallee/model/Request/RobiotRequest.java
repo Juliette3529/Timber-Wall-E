@@ -7,15 +7,8 @@ public class RobiotRequest {
     private int id;
     private String content;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public RobiotRequest(int id, String content) {
         this.id = id;
-    }
-
-    public RobiotRequest(String content) {
         this.content = content;
     }
 
@@ -26,4 +19,13 @@ public class RobiotRequest {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

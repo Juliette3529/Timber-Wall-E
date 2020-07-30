@@ -1,14 +1,13 @@
 package com.coffefreaks.timberwallee.service;
 
 import com.coffefreaks.timberwallee.exception.TimberResourceNotFoundException;
-import com.coffefreaks.timberwallee.model.Enum.Direction;
 import com.coffefreaks.timberwallee.model.Enum.EngineStatus;
 import com.coffefreaks.timberwallee.model.Location;
+import com.coffefreaks.timberwallee.model.Request.RobiotRequest;
 import com.coffefreaks.timberwallee.model.Response.RobiotResponse;
 import com.coffefreaks.timberwallee.service.Interface.RobiotService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,8 +64,28 @@ public class RobiotServiceImpl implements RobiotService {
     }
 
     @Override
-    public boolean move(Direction direction) {
-        //TODO to implemented
-        return false;
+    public boolean move(Location dest) {
+        while(getEngineStatus().equals(EngineStatus.MOVING)) {
+            try {
+                logger.info("move - waiting for Robiot to finish moving");
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                logger.error("move - Thread error - {}", e.getMessage());
+                return false;
+            }
+        }
+        RobiotRequest request = new RobiotRequest(302, String.format("%1$,.2f, %2$,.2f", dest.getPositionX(), dest.getPositionY()));
+        String url = robiotEndpoint + "/302";
+        logger.trace("move - url = {}", url);
+
+        boolean result = false;
+        ResponseEntity<RobiotResponse> response = clientRobiot.getForEntity(url, RobiotResponse.class);
+        if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+            result = true;
+        } else {
+            logger.error("move - Error {} in trying to move", response.getStatusCode());
+        }
+
+        return result;
     }
 }

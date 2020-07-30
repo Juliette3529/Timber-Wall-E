@@ -3,6 +3,7 @@ package com.coffefreaks.timberwallee.service;
 import com.coffefreaks.timberwallee.model.Enum.EngineStatus;
 import com.coffefreaks.timberwallee.model.Location;
 import com.coffefreaks.timberwallee.service.Interface.RobiotService;
+import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -53,7 +54,20 @@ class RobiotServiceImplTest {
     }
 
     @Test
-    @Disabled("Not implemented yet")
-    void move() {
+    @DisplayName("IntegrationTest - Move Robiot successfully")
+    void whenExternalApiIsRunning_moveWithSuccess() {
+        /* Need robiot-api running and configured on application.properties in test/resources
+         *  More tests with mock client needed to tests errors
+         **/
+
+        Location dest = new Location();
+        dest.setPositionX(5.0);
+        dest.setPositionY(0.0);
+        boolean result = service.move(dest);
+        logger.info("test move = {}", result);
+
+        dest.setPositionX(0.0);
+        service.move(dest);
+        Assertions.assertTrue(result);
     }
 }
