@@ -14,6 +14,7 @@ Create Table Maps
 	Identifiant BIGINT IDENTITY,
 	Xmax BIGINT,
 	Ymax BIGINT,
+	Name VARCHAR(255),
 	PRIMARY KEY(Identifiant)
 )
 
@@ -50,9 +51,9 @@ Create Table Circuit
 Create Table Breakpoint
 (
 	Identifiant BIGINT IDENTITY,
-	Xpoint BIGINT,
-	Ypoint BIGINT,
+	Obstacles BIGINT,
 	Circuit BIGINT,
 	PRIMARY KEY (Identifiant),
-	ADD Constraint FK_Circuit Foreign key (Circuit) References Circuit(Identifiant)
+	ADD Constraint FK_Circuit Foreign key (Circuit) References Circuit(Identifiant),
+	ADD Constraint FK_Obstacles Foreign key (Obstacles) References Obstacles(Identifiant)
 )
