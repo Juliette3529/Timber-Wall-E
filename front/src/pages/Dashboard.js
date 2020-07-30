@@ -1,11 +1,28 @@
 import React from 'react';
 import {Icon, Button, Container, Segment, Image, Grid, Card} from "semantic-ui-react";
 import './Dashboard.css';
-import logo from '../src/images/logowithoutslogan.svg';
-import battery from './images/battery.svg';
-import Cartography from "./components/cartography/Cartography";
+import logo from '../res/images/logowithoutslogan.svg';
+import battery from '../res/images/battery.svg';
+import Cartography from "../components/cartography/Cartography";
+import CartographyModel from "../model/CartographyModel";
 
 function Dashboard() {
+    const cartography = new CartographyModel(
+        "Forêt Kokiri",
+        "D-------------------------------------------------\n" +
+        "|   O     O    O     O    O     O   O     O   O  |\n" +
+        "|                                                |\n" +
+        "| O    O    O      O   O      O     XXX   O      |\n" +
+        "|     XXXXXX                                     |\n" +
+        "|   O       O      XXXX       O  X        O      |\n" +
+        "|       O        O    XXXX          X O       O  |\n" +
+        "|                                                |\n" +
+        "|   O     O    O     O    O  X  O   O     O   O  |\n" +
+        "|                                                |\n" +
+        "| O    O    O      O   O      X     O     O      |\n" +
+        "--------------------------------------------------"
+    )
+
     return (
         <Container fluid>
             <Segment.Group>
@@ -14,7 +31,7 @@ function Dashboard() {
                 <Segment id="driver">
                     <Grid columns={3}>
                         <Grid.Row centered>
-                            <Cartography/>
+                            <Cartography cartography={cartography}/>
                         </Grid.Row>
 
                         <Grid.Row verticalAlign='middle'>
