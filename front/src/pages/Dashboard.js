@@ -39,7 +39,7 @@ function Dashboard() {
                                 <Button basic><Icon name="angle left" size="huge"/></Button>
                             </Grid.Column>
                             <Grid.Column textAlign='center'>
-                                <h2>Nom de la cartographie</h2>
+                                <h2>{cartography.name}</h2>
                             </Grid.Column>
                             <Grid.Column textAlign='right'>
                                 <Button basic><Icon name="angle right" size="huge"/></Button>
