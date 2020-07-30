@@ -1,59 +1,58 @@
 Create table Users
 (
-	Identifiant BIGINT IDENTITY,
+	Id BIGINT IDENTITY,
 	Last_Name VARCHAR(25),
 	First_Name VARCHAR(25),
 	Login VARCHAR(255),
 	Password VARCHAR(255),
-	Role VARCHAR(50),
-	PRIMARY KEY(Identifiant)
+	PRIMARY KEY(Id)
 )
 
 Create Table Maps
 (
-	Identifiant BIGINT IDENTITY,
+	Id BIGINT IDENTITY,
 	Xmax BIGINT,
 	Ymax BIGINT,
 	Name VARCHAR(255),
-	PRIMARY KEY(Identifiant)
+	PRIMARY KEY(Id)
 )
 
 
 Create Table Obstacles
 (
-	Identifiant BIGINT IDENTITY,
+	Id BIGINT IDENTITY,
 	Xpoint BIGINT,
 	Ypoint BIGINT,
 	Maps BIGINT,
 	Type_Of_Obstacles BIGINT,
-	PRIMARY KEY(Identifiant),
-	ADD Constraint Fk_Maps Foreign key (Maps) References Maps(Identifiant),
-	ADD Constraint Fk_Type_Of_Obstacles Foreign key (Type_Of_Obstacles) References Type_Of_Obstacles(Identifiant)
+	PRIMARY KEY(Id),
+	ADD Constraint Fk_Maps Foreign key (Maps) References Maps(Id),
+	ADD Constraint Fk_Type_Of_Obstacles Foreign key (Type_Of_Obstacles) References Type_Of_Obstacles(Id)
 )
 
 Create Table Type_Of_Obstacles
 (
-	Identifiant BIGINT IDENTITY,
+	Id BIGINT IDENTITY,
 	Wording VARCHAR(255),
-	PRIMARY KEY(Identifiant)
+	PRIMARY KEY(Id)
 )
 
 Create Table Circuit
 (
-	Identifiant BIGINT IDENTITY,
+	Id BIGINT IDENTITY,
 	Date_Circuit DateTime,
 	Consumption BIGINT,
 	Maps BIGINT,
-	PRIMARY KEY (Identifiant),
-	ADD Constraint Fk_Maps Foreign key (Maps) References Maps(Identifiant)
+	PRIMARY KEY (Id),
+	ADD Constraint Fk_Maps Foreign key (Maps) References Maps(Id)
 )
 
 Create Table Breakpoint
 (
-	Identifiant BIGINT IDENTITY,
+	Id BIGINT IDENTITY,
 	Obstacles BIGINT,
 	Circuit BIGINT,
-	PRIMARY KEY (Identifiant),
-	ADD Constraint FK_Circuit Foreign key (Circuit) References Circuit(Identifiant),
-	ADD Constraint FK_Obstacles Foreign key (Obstacles) References Obstacles(Identifiant)
+	PRIMARY KEY (Id),
+	ADD Constraint FK_Circuit Foreign key (Circuit) References Circuit(Id),
+	ADD Constraint FK_Obstacles Foreign key (Obstacles) References Obstacles(Id)
 )
