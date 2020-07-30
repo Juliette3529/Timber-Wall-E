@@ -9,6 +9,7 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.openapi.generator'
+apply plugin: 'war'
 
 group = 'com.coffe-freaks'
 version = '0.0.1-SNAPSHOT'
@@ -33,6 +34,7 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
