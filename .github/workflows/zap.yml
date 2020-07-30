@@ -1,0 +1,14 @@
+name: ZAP
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: owasp/zap2docker-stable
+      options: --user root
+    steps:
+      - uses: actions/checkout@v1
+      - name: run zap
+        if: always()
+        run: zap-baseline.py -t http://localhost:3000/ -g gen.conf -r testreport.html
+#       - name: Run any additional scripts to raise issues etc
