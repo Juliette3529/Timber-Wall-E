@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.coffe-freaks.timber-walle-e' is invalid and this project uses 'com.coffefreaks.timberwallee' instead.
+* The original package name 'com.coffe-freaks.timber-walle-e' is invalid and this project uses 'com.coffefreaks.timberwalle' instead.
 
 # Getting Started
 
