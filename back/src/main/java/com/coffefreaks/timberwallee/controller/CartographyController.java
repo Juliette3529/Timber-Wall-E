@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping(value = "/cartography")
 public class CartographyController {
 
-
     private final CartographyService cartographyService;
 
     /**
