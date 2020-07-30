@@ -2,6 +2,7 @@ package com.coffefreaks.timberwalle.service;
 
 import com.coffefreaks.timberwalle.exception.TimberResourceNotFoundException;
 import com.coffefreaks.timberwalle.model.Enum.EngineStatus;
+import com.coffefreaks.timberwalle.model.Enum.MeasureStatus;
 import com.coffefreaks.timberwalle.model.Location;
 import com.coffefreaks.timberwalle.model.Request.RobiotRequest;
 import com.coffefreaks.timberwalle.model.Response.RobiotResponse;
@@ -31,9 +32,9 @@ public class RobiotServiceImpl implements RobiotService {
     public Location getCurrentLocation() {
         String url = robiotEndpoint + "/301";
         logger.trace("getLocation - url = {}", url);
-        ResponseEntity<RobiotResponse> response = clientRobiot.getForEntity(url, RobiotResponse.class);
-
         Location loc = new Location();
+
+        ResponseEntity<RobiotResponse> response = clientRobiot.getForEntity(url, RobiotResponse.class);
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
             // Test the format of the return content, must be "double,double" format
             if (!response.getBody().getContent().matches("^[0-9]+\\.[0-9]+,[0-9]+.[0-9]+$")) {
@@ -54,9 +55,9 @@ public class RobiotServiceImpl implements RobiotService {
     public EngineStatus getEngineStatus() {
         String url = robiotEndpoint + "/201";
         logger.trace("getEngineStatus - url = {}", url);
-        ResponseEntity<RobiotResponse> response = clientRobiot.getForEntity(url, RobiotResponse.class);
-
         EngineStatus status;
+
+        ResponseEntity<RobiotResponse> response = clientRobiot.getForEntity(url, RobiotResponse.class);
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
             status = EngineStatus.valueOfLabel(response.getBody().getContent());
             logger.trace("getEngineStatus - Enum status={} and response.content={}", status, response.getBody().getContent());
@@ -69,6 +70,10 @@ public class RobiotServiceImpl implements RobiotService {
 
     @Override
     public boolean move(Location dest) {
+        boolean result = false;
+        String url = robiotEndpoint + "/302";
+        logger.trace("move - url = {}", url);
+
         while(getEngineStatus().equals(EngineStatus.MOVING)) {
             try {
                 logger.info("move - waiting for Robiot to finish moving");
@@ -80,11 +85,8 @@ public class RobiotServiceImpl implements RobiotService {
         }
         RobiotRequest request = new RobiotRequest(302,
                             String.format(Locale.ROOT, "%1$.2f,%2$.2f", dest.getPositionX(), dest.getPositionY()));
-        String url = robiotEndpoint + "/302";
-        logger.trace("move - url = {}", url);
         HttpEntity<RobiotRequest> entity = new HttpEntity<>(request);
 
-        boolean result = false;
         ResponseEntity<RobiotResponse> response = clientRobiot.exchange(url, HttpMethod.PUT,
                                         entity, RobiotResponse.class);
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
@@ -94,5 +96,64 @@ public class RobiotServiceImpl implements RobiotService {
         }
 
         return result;
+    }
+
+    @Override
+    public double getBatteryUsage() {
+        String url = robiotEndpoint + "/101";
+        logger.trace("getBatteryUsage - url = {}", url);
+        double result = Double.MIN_VALUE;
+
+        while(getEngineStatus().equals(EngineStatus.MOVING) || !getMesureStatus().equals(MeasureStatus.READY)) {
+            try {
+                logger.info("getBatteryUsage - waiting for Robiot to finish its job");
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                logger.error("getBatteryUsage - Thread error - {}", e.getMessage());
+                throw new TimberResourceNotFoundException("Internal server error");
+            }
+        }
+        ResponseEntity<RobiotResponse> response = clientRobiot.getForEntity(url, RobiotResponse.class);
+
+        if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+            result = Double.parseDouble(response.getBody().getContent());
+        } else {
+            logger.error("getBatteryUsage - Error {} while retrieving robiot battery", response.getStatusCode());
+        }
+
+        return result;
+    }
+
+    //TODO  not useful ? prefering measureStatus
+    // return 18000 by default
+    private double getRemainingMesureTime() {
+        String url = robiotEndpoint + "/402";
+        logger.trace("getRemainingMesureTime - url = {}", url);
+        double result = Double.MIN_VALUE;
+
+        ResponseEntity<RobiotResponse> response = clientRobiot.getForEntity(url, RobiotResponse.class);
+        if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+            result = Double.parseDouble(response.getBody().getContent());
+        } else {
+            logger.error("getRemainingMesureTime - Error {} while retrieving robiot mesure time", response.getStatusCode());
+        }
+
+        return result;
+    }
+
+    private MeasureStatus getMesureStatus() {
+        String url = robiotEndpoint + "/401";
+        logger.trace("getMesure - url = {}", url);
+        MeasureStatus status;
+
+        ResponseEntity<RobiotResponse> response = clientRobiot.getForEntity(url, RobiotResponse.class);
+        if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+            status = MeasureStatus.valueOfLabel(response.getBody().getContent());
+            logger.trace("getMesureStatus - Enum status={} and response.content={}", status, response.getBody().getContent());
+        } else {
+            logger.error("getMesureStatus - Error {} while retrieving robiot battery status - {}", response.getStatusCode(), response.getBody());
+            throw new TimberResourceNotFoundException("Robiot-API error on id 401");
+        }
+        return status;
     }
 }
