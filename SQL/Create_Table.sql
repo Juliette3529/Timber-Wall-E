@@ -1,15 +1,15 @@
 Create table Users
 (
 	Identifiant BIGINT IDENTITY,
-	Nom VARCHAR(25),
-	Prenom VARCHAR(25),
+	Last_Name VARCHAR(25),
+	First_Name VARCHAR(25),
 	Login VARCHAR(255),
 	Password VARCHAR(255),
 	Role VARCHAR(50),
 	PRIMARY KEY(Identifiant)
 )
 
-Create Table Cartographie
+Create Table Maps
 (
 	Identifiant BIGINT IDENTITY,
 	Xmax BIGINT,
@@ -17,44 +17,42 @@ Create Table Cartographie
 	PRIMARY KEY(Identifiant)
 )
 
-/*
-Create Table Obstacle
+
+Create Table Obstacles
 (
 	Identifiant BIGINT IDENTITY,
 	Xpoint BIGINT,
 	Ypoint BIGINT,
-	Cartographie BIGINT,
-	Type_Obstacle BIGINT,
+	Maps BIGINT,
+	Type_Of_Obstacles BIGINT,
 	PRIMARY KEY(Identifiant),
-	ADD Constraint Fk_Cartographie Foreign key (Cartographie) References Cartographie(Identifiant),
-	ADD Constraint Fk_Type_Obstacle Foreign key (Type_Obstacle) References Type_Obstacle(Identifiant)
-)*/
+	ADD Constraint Fk_Maps Foreign key (Maps) References Maps(Identifiant),
+	ADD Constraint Fk_Type_Of_Obstacles Foreign key (Type_Of_Obstacles) References Type_Of_Obstacles(Identifiant)
+)
 
-Create Table Type_Obstacle
+Create Table Type_Of_Obstacles
 (
 	Identifiant BIGINT IDENTITY,
-	Libelle VARCHAR(255),
+	Wording VARCHAR(255),
 	PRIMARY KEY(Identifiant)
 )
 
-Create Table Parcours
+Create Table Circuit
 (
 	Identifiant BIGINT IDENTITY,
-	Date_parcours DateTime,
-	Consommation BIGINT,
-	Cartographie BIGINT,
+	Date_Circuit DateTime,
+	Consumption BIGINT,
+	Maps BIGINT,
 	PRIMARY KEY (Identifiant),
-	ADD Constraint Fk_Cartographie Foreign key (Cartographie) References Cartographie(Identifiant)
+	ADD Constraint Fk_Maps Foreign key (Maps) References Maps(Identifiant)
 )
 
-Create Table Points_Arrets
+Create Table Breakpoint
 (
 	Identifiant BIGINT IDENTITY,
 	Xpoint BIGINT,
 	Ypoint BIGINT,
-	Parcours BIGINT,
-	Type_Obstacle BIGINT,
+	Circuit BIGINT,
 	PRIMARY KEY (Identifiant),
-	ADD Constraint FK_Parcours Foreign key (Parcours) References Parcours(Identifiant),
-	ADD Constraint Fk_Type_Obstacle Foreign key (Type_Obstacle) References Type_Obstacle(Identifiant)
+	ADD Constraint FK_Circuit Foreign key (Circuit) References Circuit(Identifiant)
 )
