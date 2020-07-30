@@ -36,8 +36,8 @@ public class MoveController {
 
         boolean results = this.robiotService.move(locationRequest);
         if (!results) {
-            return new LocationResponse(locationRequest.getPositionX(), locationRequest.getPositionY());
+            throw new TimberResourceNotFoundException("Error : The movement could not be performed.");
         }
-        throw new TimberResourceNotFoundException("Error : The movement could not be performed.");
+        return new LocationResponse(locationRequest.getPositionX(), locationRequest.getPositionY());
     }
 }
