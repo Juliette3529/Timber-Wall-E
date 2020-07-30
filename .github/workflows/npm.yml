@@ -1,4 +1,4 @@
-name: CI/CD
+name: front_ci/cd
 on:
   push:
     branches: [ develop ]
@@ -9,6 +9,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./front
 
     strategy:
       matrix:
@@ -25,9 +27,12 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ${{ env.wokring-directory }}
 
       - name: Run the tests
         run: npm test
+        working-directory: ${{ env.wokring-directory }}
 
       - name: Build
         run: npm run build
+        working-directory: ${{ env.wokring-directory }}
