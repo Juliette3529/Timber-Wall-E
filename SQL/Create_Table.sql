@@ -33,7 +33,7 @@ Create Table Obstacles
 Create Table Type_Of_Obstacles
 (
 	Id BIGINT IDENTITY,
-	Wording VARCHAR(255),
+	Label VARCHAR(255),
 	PRIMARY KEY(Id)
 )
 
