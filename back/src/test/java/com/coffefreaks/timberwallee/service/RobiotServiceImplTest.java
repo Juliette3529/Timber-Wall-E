@@ -3,9 +3,7 @@ package com.coffefreaks.timberwallee.service;
 import com.coffefreaks.timberwallee.model.Enum.EngineStatus;
 import com.coffefreaks.timberwallee.model.Location;
 import com.coffefreaks.timberwallee.service.Interface.RobiotService;
-import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -33,7 +31,7 @@ class RobiotServiceImplTest {
 
         Location loc = service.getCurrentLocation();
 
-        logger.info("getlocation - {}", loc);
+        logger.info("Test - getlocation - {}", loc);
         Assertions.assertNotNull(loc, "Location not null");
         Assertions.assertNotNull(loc.getPositionX(), "positionX not null");
         Assertions.assertNotNull(loc.getPositionY(), "positionY not null");
@@ -48,9 +46,22 @@ class RobiotServiceImplTest {
 
         EngineStatus status = service.getEngineStatus();
 
-        logger.info("getEngineStatus - {}", status);
+        logger.info("Test - getEngineStatus - {}", status);
         Assertions.assertNotNull(status, "Location not null");
         Assertions.assertSame(EngineStatus.STOPPED, status);
+    }
+
+    @Test
+    @DisplayName("IntegrationTest - Retrieve Robiot battery use successfully")
+    void whenExternalApiIsRunning_getBatteryUsageWithSuccess() {
+        /* Need robiot-api running and configured on application.properties in test/resources
+         *  More tests with mock client needed to tests errors
+         **/
+
+        double usage = service.getBatteryUsage();
+
+        logger.info("Test - getBatteryUsage - {}", usage);
+        Assertions.assertTrue(usage >= 0);
     }
 
     @Test
