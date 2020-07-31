@@ -1,8 +1,8 @@
 package com.coffefreaks.timberwalle.controller;
 
-import com.coffefreaks.timberwalle.model.Request.CircuitRequest;
-import com.coffefreaks.timberwalle.model.Response.CircuitResponse;
-import com.coffefreaks.timberwalle.service.Interface.CircuitService;
+import com.coffefreaks.timberwalle.model.request.CircuitRequest;
+import com.coffefreaks.timberwalle.model.response.CircuitResponse;
+import com.coffefreaks.timberwalle.service.interfaces.CircuitService;
 import com.coffefreaks.timberwalle.util.RestPreconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.coffefreaks.timberwalle.model.Request;
+package com.coffefreaks.timberwalle.model.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
