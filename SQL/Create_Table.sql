@@ -11,8 +11,8 @@ Create table Users
 Create Table Maps
 (
 	Id BIGINT IDENTITY,
-	Xmax BIGINT,
-	Ymax BIGINT,
+	Xmax Float(255),
+	Ymax Float(255),
 	Name VARCHAR(255),
 	PRIMARY KEY(Id)
 )
@@ -21,8 +21,8 @@ Create Table Maps
 Create Table Obstacles
 (
 	Id BIGINT IDENTITY,
-	Xpoint BIGINT,
-	Ypoint BIGINT,
+	Xpoint Float(255),
+	Ypoint Float(255),
 	Maps BIGINT,
 	Type_Of_Obstacles BIGINT,
 	PRIMARY KEY(Id),
