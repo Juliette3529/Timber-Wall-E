@@ -15,7 +15,10 @@ function CartographyModel(name, plotContent) {
 
 CartographyModel.prototype = {
     getXFromIndex: function(i) { return i % this.width; },
-    getYFromIndex: function(i) { return Math.floor(i / this.width); }
+    getYFromIndex: function(i) { return Math.floor(i / this.width); },
+    getCellFromIndex: function(i) { return this.plotContent.charAt(i); },
+    getIndexFromCoords: function(x, y) { return this.width * y + x; },
+    getCellFromCoords: function(x, y) { return this.getCellFromIndex(this.getIndexFromCoords(x, y)); }
 }
 
 export default CartographyModel;

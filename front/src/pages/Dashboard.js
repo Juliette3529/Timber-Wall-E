@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Icon, Button, Container, Segment, Image, Grid, Card} from "semantic-ui-react";
 import './Dashboard.css';
 import logo from '../res/images/logowithoutslogan.svg';
 import battery from '../res/images/battery.svg';
 import Cartography from "../components/cartography/Cartography";
 import CartographyModel from "../model/CartographyModel";
+import apiService from "../services/apiService.js";
+import WallEModel from "../model/WallEModel";
 
 function Dashboard() {
     const cartography = new CartographyModel(
@@ -21,7 +23,28 @@ function Dashboard() {
         "|                                                |\n" +
         "| O    O    O      O   O      X     O     O      |\n" +
         "--------------------------------------------------"
-    )
+    );
+
+    const startIndex = cartography.plotContent.indexOf("D");
+
+    const [wallE, setWallE] = useState(new WallEModel(cartography.getXFromIndex(startIndex), cartography.getYFromIndex(startIndex)));
+
+    const moveWallE = (positionX, positionY) => {
+        if (positionX < 0 || positionY < 0 || positionX >= cartography.width || positionY >= cartography.height) {
+            return false;
+        }
+
+        if (cartography.getCellFromCoords(positionX, positionY) === "X") {
+            return false; // TODO add visual feedback of error
+        }
+
+        apiService.postMove(positionX, positionY)
+            .then((moveResult) => {
+                if (!moveResult) return;
+                wallE.move(moveResult.positionX, moveResult.positionY);
+                setWallE(new WallEModel(wallE.xPos, wallE.yPos, wallE.powerConsumption, wallE.isMeasuring));
+            });
+    }
 
     return (
         <Container fluid>
@@ -31,7 +54,7 @@ function Dashboard() {
                 <Segment id="driver">
                     <Grid columns={3}>
                         <Grid.Row centered>
-                            <Cartography cartography={cartography}/>
+                            <Cartography cartography={cartography} wallE={wallE}/>
                         </Grid.Row>
 
                         <Grid.Row verticalAlign='middle'>
@@ -50,25 +73,25 @@ function Dashboard() {
                     <Grid verticalAlign='middle' columns={3}>
                         <Grid.Row centered>
                             <Grid.Column textAlign="center">
-                                <Icon name="arrow up" color="orange" size="huge"/>
+                                <Icon name="arrow up" color="orange" size="huge" onClick={() => moveWallE(wallE.xPos, wallE.yPos-1)}/>
                             </Grid.Column>
                         </Grid.Row>
 
                         <Grid.Row>
                             <Grid.Column textAlign="right" width={6}>
-                                <Icon name="arrow left" color="orange" size="huge"/>
+                                <Icon name="arrow left" color="orange" size="huge" onClick={() => moveWallE(wallE.xPos-1, wallE.yPos)}/>
                             </Grid.Column>
                             <Grid.Column textAlign="center" width={4}>
                                 <Icon name="circle" color="orange" size="huge"/>
                             </Grid.Column>
                             <Grid.Column width={6}>
-                                <Icon name="arrow right" color="orange" size="huge"/>
+                                <Icon name="arrow right" color="orange" size="huge" onClick={() => moveWallE(wallE.xPos+1, wallE.yPos)}/>
                             </Grid.Column>
                         </Grid.Row>
 
                         <Grid.Row centered>
                             <Grid.Column textAlign="center">
-                                <Icon name="arrow down" color="orange" size="huge"/>
+                                <Icon name="arrow down" color="orange" size="huge" onClick={() => moveWallE(wallE.xPos, wallE.yPos+1)}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
