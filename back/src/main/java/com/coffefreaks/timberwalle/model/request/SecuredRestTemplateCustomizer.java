@@ -1,4 +1,4 @@
-package com.coffefreaks.timberwalle.model.Request;
+package com.coffefreaks.timberwalle.model.request;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
