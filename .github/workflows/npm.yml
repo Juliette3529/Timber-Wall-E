@@ -7,9 +7,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [10.19]
@@ -28,12 +26,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ${{ env.wokring-directory }}
 
       - name: Run the tests
         run: npm test
-        working-directory: ${{ env.wokring-directory }}
 
       - name: Build
         run: npm run build
-        working-directory: ${{ env.wokring-directory }}
