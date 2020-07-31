@@ -1,13 +1,18 @@
 plugins {
 	id 'org.springframework.boot' version '2.3.2.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id "com.github.johnrengelman.processes" version "0.5.0"
+	id "org.springdoc.openapi-gradle-plugin" version "1.3.0"
+	id "org.openapi.generator" version "4.3.1"
 	id 'java'
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.openapi.generator'
+apply plugin: 'war'
 
 group = 'com.coffe-freaks'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
@@ -23,9 +28,14 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+
+	compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+	compile 'org.apache.httpcomponents:httpclient:4.5'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
