@@ -12,7 +12,7 @@ apply plugin: 'org.openapi.generator'
 apply plugin: 'war'
 
 group = 'com.coffe-freaks'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {

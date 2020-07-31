@@ -1,4 +1,4 @@
-package com.coffefreaks.timberwalle.model.Request;
+package com.coffefreaks.timberwalle.model.request;
 
 import com.coffefreaks.timberwalle.model.Cartography;
 
