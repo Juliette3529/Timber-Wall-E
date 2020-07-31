@@ -1,4 +1,4 @@
-package com.coffefreaks.timberwalle.model.Request;
+package com.coffefreaks.timberwalle.model.request;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
@@ -40,8 +40,7 @@ public class SecuredRestTemplateCustomizer implements RestTemplateCustomizer {
         restTemplate.setRequestFactory(new ClientHttpRequestFactorySupplier(
                 keyStore(keyStoreFile, keyStorePassword),
                 keyStorePassword,
-                keyStore(trustStoreFile, trustStorePassword),
-                trustStorePassword
+                keyStore(trustStoreFile, trustStorePassword)
         ).get());
     }
 
@@ -75,21 +74,22 @@ public class SecuredRestTemplateCustomizer implements RestTemplateCustomizer {
         return keyStore;
     }
 
+    /**
+     * A custom supplier that the customized RestTemplate will be using to communicate with Robiot
+     */
     static class ClientHttpRequestFactorySupplier implements Supplier<ClientHttpRequestFactory> {
 
         private final KeyStore trustStore;
-        private final char[] trustStorePassword;
 
         private final KeyStore keyStore;
         private final char[] password;
 
-        public ClientHttpRequestFactorySupplier(KeyStore keyStore, char[] keyStorePassword, KeyStore trustStore, char[] trustStorePassword) {
+        public ClientHttpRequestFactorySupplier(KeyStore keyStore, char[] keyStorePassword, KeyStore trustStore) {
             super();
 
             this.keyStore = keyStore;
             this.password = keyStorePassword;
             this.trustStore = trustStore;
-            this.trustStorePassword = trustStorePassword;
         }
 
         @Override
@@ -99,7 +99,7 @@ public class SecuredRestTemplateCustomizer implements RestTemplateCustomizer {
                 sslContext = SSLContextBuilder
                         .create()
                         .loadKeyMaterial(keyStore, password)
-                        .loadTrustMaterial(trustStore, new TrustSelfSignedStrategy())
+                        .loadTrustMaterial(trustStore, new TrustSelfSignedStrategy()) // Trust self-signed certs
                         .build();
             } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException | UnrecoverableKeyException e) {
                 e.printStackTrace(); // TODO make decision
