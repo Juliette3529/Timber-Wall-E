@@ -114,16 +114,26 @@ public class RobiotServiceImpl implements RobiotService {
         logger.trace("getBatteryUsage - url = {}", url);
         double result = Double.MIN_VALUE;
 
-        while(getEngineStatus().equals(EngineStatus.MOVING) || !getMesureStatus().equals(MeasureStatus.READY)) {
+        boolean isMoving = false;
+        boolean isMeasuring = false;
+        do {
+            isMoving = getEngineStatus().equals(EngineStatus.MOVING);
+            isMeasuring = getMesureStatus().equals(MeasureStatus.READY);
             try {
                 logger.info("getBatteryUsage - waiting for Robiot to finish its job");
-                Thread.sleep(1000);
+                if (!isMeasuring) {
+                    long waiting = (long) getRemainingMesureTime() + 1;
+                    Thread.sleep(waiting);
+                } else {
+                    Thread.sleep(1000);
+                }
             } catch (InterruptedException e) {
                 logger.error("getBatteryUsage - Thread error - {}", e.getMessage());
                 Thread.currentThread().interrupt();
                 throw new TimberResourceNotFoundException("Internal server error");
             }
-        }
+        } while(isMoving || !isMeasuring) ;
+
         ResponseEntity<RobiotResponse> response = clientRobiot.getForEntity(url, RobiotResponse.class);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
@@ -135,8 +145,40 @@ public class RobiotServiceImpl implements RobiotService {
         return result;
     }
 
-    //TODO  not useful ? prefering measureStatus
-    // return 18000 by default
+    @Override
+    public boolean startMesure() {
+        boolean result = false;
+        String url = robiotEndpoint + "/401";
+        logger.trace("startMesure - url = {}", url);
+
+        if (getMesureStatus().equals(MeasureStatus.READY)) {
+            while(getEngineStatus().equals(EngineStatus.MOVING)) {
+                try {
+                    logger.info("startMesure - waiting for Robiot to finish moving");
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    logger.error("startMesure - Thread error - {}", e.getMessage());
+                    Thread.currentThread().interrupt();
+                    return false;
+                }
+            }
+
+            RobiotRequest request = new RobiotRequest(401,MeasureStatus.TOSTART.getLabel());
+            HttpEntity<RobiotRequest> entity = new HttpEntity<>(request);
+
+            ResponseEntity<RobiotResponse> response = clientRobiot.exchange(url, HttpMethod.PUT,
+                    entity, RobiotResponse.class);
+            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+                result = true;
+            } else {
+                logger.error("startMesure - Error {} in trying to mesure", response.getStatusCode());
+            }
+
+        }
+
+        return result;
+    }
+
     private double getRemainingMesureTime() {
         String url = robiotEndpoint + "/402";
         logger.trace("getRemainingMesureTime - url = {}", url);
@@ -159,7 +201,7 @@ public class RobiotServiceImpl implements RobiotService {
 
         ResponseEntity<RobiotResponse> response = clientRobiot.getForEntity(url, RobiotResponse.class);
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            status = MeasureStatus.valueOf(response.getBody().getContent());
+            status = MeasureStatus.valueOfLabel(response.getBody().getContent());
             logger.trace("getMesureStatus - Enum status={} and response.content={}", status, response.getBody().getContent());
         } else {
             logger.error("getMesureStatus - Error {} while retrieving robiot battery status - {}", response.getStatusCode(), response.getBody());
@@ -167,4 +209,6 @@ public class RobiotServiceImpl implements RobiotService {
         }
         return status;
     }
+
+
 }

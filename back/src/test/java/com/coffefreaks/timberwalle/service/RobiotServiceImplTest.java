@@ -86,4 +86,15 @@ class RobiotServiceImplTest {
         service.move(dest);
         Assertions.assertTrue(result);
     }
+
+    @Test
+    @Disabled("Fix to deal with SSL")
+    @DisplayName("IntegrationTest - Move Robiot successfully")
+    void whenExternalApiIsRunning_startMesurWithSuccess() {
+        /* Need robiot-api running and configured on application.properties in test/resources
+         *  More tests with mock client needed to tests errors
+         **/
+        Assertions.assertTrue(service.startMesure());
+    }
+
 }

@@ -32,4 +32,11 @@ public interface RobiotService {
      * @return a double with the value
      */
     double getBatteryUsage();
+
+    /**
+     * Tell Robiot API to start mesuring on current location
+     *
+     * @return a boolean stating the success or not
+     */
+    boolean startMesure();
 }
