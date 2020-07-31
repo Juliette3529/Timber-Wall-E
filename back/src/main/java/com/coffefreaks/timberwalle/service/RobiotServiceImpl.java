@@ -23,7 +23,6 @@ import java.util.Locale;
 
 @Service
 public class RobiotServiceImpl implements RobiotService {
-    private RestTemplate clientRobiot = new RestTemplate();
     private static final Logger logger = LoggerFactory.getLogger(RobiotServiceImpl.class);
 
     private RestTemplate clientRobiot;
@@ -160,7 +159,7 @@ public class RobiotServiceImpl implements RobiotService {
 
         ResponseEntity<RobiotResponse> response = clientRobiot.getForEntity(url, RobiotResponse.class);
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            status = MeasureStatus.valueOfLabel(response.getBody().getContent());
+            status = MeasureStatus.valueOf(response.getBody().getContent());
             logger.trace("getMesureStatus - Enum status={} and response.content={}", status, response.getBody().getContent());
         } else {
             logger.error("getMesureStatus - Error {} while retrieving robiot battery status - {}", response.getStatusCode(), response.getBody());
