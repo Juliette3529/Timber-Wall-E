@@ -1,6 +1,6 @@
 package com.coffefreaks.timberwalle.configuration;
 
-import com.coffefreaks.timberwalle.model.Request.SecuredRestTemplateCustomizer;
+import com.coffefreaks.timberwalle.model.request.SecuredRestTemplateCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

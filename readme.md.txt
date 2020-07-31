@@ -1,0 +1,2 @@
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/Juliette3529/Timber-Wall-E.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Juliette3529/Timber-Wall-E/alerts/)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/Juliette3529/Timber-Wall-E.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Juliette3529/Timber-Wall-E/alerts/)
