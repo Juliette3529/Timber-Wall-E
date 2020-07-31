@@ -2,8 +2,8 @@ package com.coffefreaks.timberwalle.controller;
 
 import com.coffefreaks.timberwalle.exception.TimberResourceNotFoundException;
 import com.coffefreaks.timberwalle.model.request.LocationRequest;
+import com.coffefreaks.timberwalle.model.response.LocationResponse;
 import com.coffefreaks.timberwalle.service.interfaces.RobiotService;
-import com.coffefreaks.timberwallee.model.response.LocationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.coffefreaks.timberwallee.model.enumeration;
+package com.coffefreaks.timberwalle.model.enumerations;
 
 public enum MeasureStatus {
     TOSTART("STARTING"),
