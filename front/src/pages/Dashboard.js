@@ -5,8 +5,10 @@ import logo from '../res/images/logowithoutslogan.svg';
 import battery from '../res/images/battery.svg';
 import Cartography from "../components/cartography/Cartography";
 import CartographyModel from "../model/CartographyModel";
+import apiService from "../services/apiService.js";
 
 function Dashboard() {
+    apiService.postMove();
     const cartography = new CartographyModel(
         "Forêt Kokiri",
         "D-------------------------------------------------\n" +
