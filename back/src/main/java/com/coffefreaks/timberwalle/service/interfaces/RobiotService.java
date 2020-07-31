@@ -1,7 +1,7 @@
-package com.coffefreaks.timberwalle.service.Interface;
+package com.coffefreaks.timberwalle.service.interfaces;
 
-import com.coffefreaks.timberwalle.model.Enum.EngineStatus;
 import com.coffefreaks.timberwalle.model.Location;
+import com.coffefreaks.timberwalle.model.enumerations.EngineStatus;
 
 public interface RobiotService {
 

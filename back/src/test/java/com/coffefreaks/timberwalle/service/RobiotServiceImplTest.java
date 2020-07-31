@@ -1,8 +1,8 @@
 package com.coffefreaks.timberwalle.service;
 
-import com.coffefreaks.timberwalle.model.Enum.EngineStatus;
 import com.coffefreaks.timberwalle.model.Location;
-import com.coffefreaks.timberwalle.service.Interface.RobiotService;
+import com.coffefreaks.timberwalle.model.enumerations.EngineStatus;
+import com.coffefreaks.timberwalle.service.interfaces.RobiotService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

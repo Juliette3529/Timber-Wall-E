@@ -1,12 +1,12 @@
 package com.coffefreaks.timberwalle.service;
 
 import com.coffefreaks.timberwalle.exception.TimberResourceNotFoundException;
-import com.coffefreaks.timberwalle.model.Enum.EngineStatus;
-import com.coffefreaks.timberwalle.model.Enum.MeasureStatus;
 import com.coffefreaks.timberwalle.model.Location;
-import com.coffefreaks.timberwalle.model.Request.RobiotRequest;
-import com.coffefreaks.timberwalle.model.Response.RobiotResponse;
-import com.coffefreaks.timberwalle.service.Interface.RobiotService;
+import com.coffefreaks.timberwalle.model.enumerations.EngineStatus;
+import com.coffefreaks.timberwalle.model.request.RobiotRequest;
+import com.coffefreaks.timberwalle.model.response.RobiotResponse;
+import com.coffefreaks.timberwalle.service.interfaces.RobiotService;
+import com.coffefreaks.timberwallee.model.enumeration.MeasureStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +22,7 @@ import java.util.Locale;
 @Service
 public class RobiotServiceImpl implements RobiotService {
     private RestTemplate clientRobiot = new RestTemplate();
-    private final static Logger logger = LoggerFactory.getLogger(RobiotServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(RobiotServiceImpl.class);
 
 
     @Value(value = "${robiot.endpoint.url}")
@@ -80,6 +80,7 @@ public class RobiotServiceImpl implements RobiotService {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 logger.error("move - Thread error - {}", e.getMessage());
+                Thread.currentThread().interrupt();
                 return false;
             }
         }
@@ -110,6 +111,7 @@ public class RobiotServiceImpl implements RobiotService {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 logger.error("getBatteryUsage - Thread error - {}", e.getMessage());
+                Thread.currentThread().interrupt();
                 throw new TimberResourceNotFoundException("Internal server error");
             }
         }
