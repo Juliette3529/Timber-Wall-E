@@ -8,7 +8,9 @@ import com.coffefreaks.timberwalle.model.Response.RobiotResponse;
 import com.coffefreaks.timberwalle.service.Interface.RobiotService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,16 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class RobiotServiceImpl implements RobiotService {
-    private RestTemplate clientRobiot = new RestTemplate();
     private final static Logger logger = LoggerFactory.getLogger(RobiotServiceImpl.class);
 
+    private RestTemplate clientRobiot;
+
+    @Autowired
+    public RobiotServiceImpl(RestTemplateBuilder builder) {
+        super();
+
+        clientRobiot = builder.build();
+    }
 
     @Value(value = "${robiot.endpoint.url}")
     private String robiotEndpoint;
