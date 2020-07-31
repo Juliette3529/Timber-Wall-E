@@ -42,6 +42,7 @@ function Dashboard() {
             .then((moveResult) => {
                 if (!moveResult) return;
                 wallE.move(moveResult.positionX, moveResult.positionY);
+                wallE.powerConsumption = moveResult.batteryUsage;
                 setWallE(new WallEModel(wallE.xPos, wallE.yPos, wallE.powerConsumption, wallE.isMeasuring));
             });
     }
@@ -100,20 +101,13 @@ function Dashboard() {
                 <Segment id="robot-stats">
                     <Grid >
                         <Grid.Row verticalAlign='middle' columns={5} centered>
-                            <Grid.Column floated='left' width={5}>
-                                <Image src={battery} size='tiny'/>
-                            </Grid.Column>
-                            <Grid.Column></Grid.Column>
                             <Grid.Column floated='right' width={5}>
                                 <Card>
-                                    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+                                    <Image src={battery} size='tiny'/>
                                     <Card.Content>
-                                        <Card.Header>Matthew</Card.Header>
-                                        <Card.Meta>
-                                            <span className='date'>Joined in 2015</span>
-                                        </Card.Meta>
+                                        <Card.Header>Power Consumption</Card.Header>
                                         <Card.Description>
-                                            Matthew is a musician living in Nashville.
+                                            {wallE.powerConsumption} Watts
                                         </Card.Description>
                                     </Card.Content>
                                     <Card.Content extra>
