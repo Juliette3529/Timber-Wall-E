@@ -1,0 +1,10 @@
+.App {
+  margin-top: 3em;
+}
+.icon-orange{
+  color:orangered;
+}
+.button.basic {
+  border: none !important;
+  box-shadow: none !important;
+}

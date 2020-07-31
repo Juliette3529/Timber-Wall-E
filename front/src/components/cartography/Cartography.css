@@ -1,0 +1,17 @@
+.Grid {
+  margin-top: 3em;
+}
+
+#Cartography div div {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background: red;
+}
+
+.tree {
+  cursor: pointer;
+}
+.obstacle {
+  cursor: not-allowed;
+}
