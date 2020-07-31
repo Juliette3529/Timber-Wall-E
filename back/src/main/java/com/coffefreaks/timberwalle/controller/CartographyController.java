@@ -1,8 +1,8 @@
 package com.coffefreaks.timberwalle.controller;
 
-import com.coffefreaks.timberwalle.model.Request.CartographyRequest;
-import com.coffefreaks.timberwalle.model.Response.CartographyResponse;
-import com.coffefreaks.timberwalle.service.Interface.CartographyService;
+import com.coffefreaks.timberwalle.model.request.CartographyRequest;
+import com.coffefreaks.timberwalle.model.response.CartographyResponse;
+import com.coffefreaks.timberwalle.service.interfaces.CartographyService;
 import com.coffefreaks.timberwalle.util.RestPreconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

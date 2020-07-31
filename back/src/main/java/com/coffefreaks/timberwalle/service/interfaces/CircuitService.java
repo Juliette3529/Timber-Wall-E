@@ -1,7 +1,7 @@
-package com.coffefreaks.timberwalle.service.Interface;
+package com.coffefreaks.timberwalle.service.interfaces;
 
-import com.coffefreaks.timberwalle.model.Request.CircuitRequest;
-import com.coffefreaks.timberwalle.model.Response.CircuitResponse;
+import com.coffefreaks.timberwalle.model.request.CircuitRequest;
+import com.coffefreaks.timberwalle.model.response.CircuitResponse;
 
 import java.util.List;
 

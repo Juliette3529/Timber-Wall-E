@@ -1,4 +1,4 @@
-package com.coffefreaks.timberwalle.model.Enum;
+package com.coffefreaks.timberwalle.model.enumerations;
 
 public enum Direction {
     DOWN,
