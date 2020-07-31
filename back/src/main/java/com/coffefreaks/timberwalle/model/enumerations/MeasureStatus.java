@@ -11,6 +11,10 @@ public enum MeasureStatus {
         this.label = value;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
     public static MeasureStatus valueOfLabel(String label){
         for (MeasureStatus e : values()) {
             if (e.label.equals(label)) {
