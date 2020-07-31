@@ -1,10 +1,11 @@
 package com.coffefreaks.timberwallee.service;
 
-import com.coffefreaks.timberwallee.model.Request.CircuitRequest;
-import com.coffefreaks.timberwallee.model.Response.CircuitResponse;
-import com.coffefreaks.timberwallee.service.Interface.CircuitService;
+import com.coffefreaks.timberwallee.model.request.CircuitRequest;
+import com.coffefreaks.timberwallee.model.response.CircuitResponse;
+import com.coffefreaks.timberwallee.service.interfaces.CircuitService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,7 +17,7 @@ public class ScenarioServiceImpl implements CircuitService {
      */
     @Override
     public List<CircuitResponse> getAll() {
-        return null;
+        return new ArrayList<>();
     }
 
     /**
@@ -26,6 +27,7 @@ public class ScenarioServiceImpl implements CircuitService {
      */
     @Override
     public CircuitResponse create(CircuitRequest circuitRequest) {
+        //TODO not implemented yet
         return null;
     }
 
@@ -36,6 +38,7 @@ public class ScenarioServiceImpl implements CircuitService {
      */
     @Override
     public CircuitResponse getById(Integer id) {
+        //TODO not implemented yet
         return new CircuitResponse();
     }
 
@@ -46,6 +49,7 @@ public class ScenarioServiceImpl implements CircuitService {
      */
     @Override
     public CircuitResponse update(CircuitRequest circuitRequest) {
+        //TODO not implemented yet
         return null;
     }
 
@@ -55,6 +59,6 @@ public class ScenarioServiceImpl implements CircuitService {
      */
     @Override
     public void delete(Integer id) {
-
+        //TODO not implemented yet
     }
 }

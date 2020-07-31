@@ -1,4 +1,4 @@
-package com.coffefreaks.timberwallee.model.Enum;
+package com.coffefreaks.timberwallee.model.enumeration;
 
 public enum EngineStatus {
     MOVING("moving"),

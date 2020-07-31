@@ -1,7 +1,7 @@
-package com.coffefreaks.timberwallee.service.Interface;
+package com.coffefreaks.timberwallee.service.interfaces;
 
-import com.coffefreaks.timberwallee.model.Request.CartographyRequest;
-import com.coffefreaks.timberwallee.model.Response.CartographyResponse;
+import com.coffefreaks.timberwallee.model.request.CartographyRequest;
+import com.coffefreaks.timberwallee.model.response.CartographyResponse;
 
 import java.util.List;
 

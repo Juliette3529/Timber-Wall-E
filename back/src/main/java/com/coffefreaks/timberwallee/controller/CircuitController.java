@@ -1,8 +1,8 @@
 package com.coffefreaks.timberwallee.controller;
 
-import com.coffefreaks.timberwallee.model.Request.CircuitRequest;
-import com.coffefreaks.timberwallee.model.Response.CircuitResponse;
-import com.coffefreaks.timberwallee.service.Interface.CircuitService;
+import com.coffefreaks.timberwallee.model.request.CircuitRequest;
+import com.coffefreaks.timberwallee.model.response.CircuitResponse;
+import com.coffefreaks.timberwallee.service.interfaces.CircuitService;
 import com.coffefreaks.timberwallee.util.RestPreconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,10 +1,11 @@
 package com.coffefreaks.timberwallee.service;
 
-import com.coffefreaks.timberwallee.model.Request.CartographyRequest;
-import com.coffefreaks.timberwallee.model.Response.CartographyResponse;
-import com.coffefreaks.timberwallee.service.Interface.CartographyService;
+import com.coffefreaks.timberwallee.model.request.CartographyRequest;
+import com.coffefreaks.timberwallee.model.response.CartographyResponse;
+import com.coffefreaks.timberwallee.service.interfaces.CartographyService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,7 +17,8 @@ public class CartographyServiceImpl implements CartographyService {
      */
     @Override
     public List<CartographyResponse> getAll() {
-        return null;
+        //TODO not implemented yet
+        return new ArrayList<>();
     }
 
     /**
@@ -26,6 +28,7 @@ public class CartographyServiceImpl implements CartographyService {
      */
     @Override
     public CartographyResponse create(CartographyRequest cartographyRequest) {
+        //TODO not implemented yet
         return null;
     }
 
@@ -36,6 +39,7 @@ public class CartographyServiceImpl implements CartographyService {
      */
     @Override
     public CartographyResponse getById(Integer id) {
+        //TODO not implemented yet
         return new CartographyResponse();
     }
 
@@ -46,6 +50,7 @@ public class CartographyServiceImpl implements CartographyService {
      */
     @Override
     public CartographyResponse update(CartographyRequest cartographyRequest) {
+        //TODO not implemented yet
         return null;
     }
 
@@ -55,6 +60,6 @@ public class CartographyServiceImpl implements CartographyService {
      */
     @Override
     public void delete(Integer id) {
-
+        //TODO not implemented yet
     }
 }

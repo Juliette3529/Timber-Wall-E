@@ -1,4 +1,4 @@
-package com.coffefreaks.timberwallee.model.Request;
+package com.coffefreaks.timberwallee.model.request;
 
 import com.coffefreaks.timberwallee.model.Circuit;
 
